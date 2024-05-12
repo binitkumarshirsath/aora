@@ -15,6 +15,7 @@ const ClickToActionButton = ({
   label,
   btnStyles,
   textStyles,
+  ...props
 }: ClickToActionButtonProps) => {
   return (
     <TouchableOpacity

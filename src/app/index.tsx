@@ -3,13 +3,16 @@ import React from "react";
 import image from "../constants/images";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ClickToActionButton from "./components/CTAButton";
+import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 const App = () => {
   return (
-    <SafeAreaView className=" bg-primary h-full">
+    <SafeAreaView className=" bg-primary h-full ">
       <ScrollView
-        className="h-full w-full px-4"
+        className="w-full px-4"
         contentContainerStyle={{ height: "100%" }}
+        keyboardShouldPersistTaps={"always"}
       >
         <View className="justify-center items-center">
           <Image source={image.logo} resizeMode="center" />
@@ -34,13 +37,15 @@ const App = () => {
             Exploration with Aora
           </Text>
           <ClickToActionButton
-            handlePress={() => console.log("hello")}
+            handlePress={() => router.push("/sign-in")}
             isLoading={false}
             label="Continue with Email"
             btnStyles="w-full mt-10"
           />
         </View>
       </ScrollView>
+
+      <StatusBar backgroundColor="#161622" style="light" translucent />
     </SafeAreaView>
   );
 };
