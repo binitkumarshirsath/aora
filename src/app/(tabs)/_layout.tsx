@@ -23,6 +23,8 @@ const TabsLayout = () => {
         name="home"
         options={{
           title: "Home",
+          headerShown: false,
+
           tabBarIcon: ({ focused, color }) => (
             <TabIcon
               color={color}

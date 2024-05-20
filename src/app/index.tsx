@@ -18,7 +18,7 @@ const App = () => {
         // contentContainerStyle={{ height: "100%" }}
         keyboardShouldPersistTaps={"always"}
       >
-        <View className="justify-center items-center">
+        <View className="justify-center items-center mb-10">
           <Image source={image.logo} resizeMode="center" />
           <Image
             source={image.cards}
