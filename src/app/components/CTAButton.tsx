@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity } from "react-native";
+import { Text, Pressable } from "react-native";
 import React from "react";
 
 interface ClickToActionButtonProps {
@@ -18,7 +18,7 @@ const ClickToActionButton = ({
   ...props
 }: ClickToActionButtonProps) => {
   return (
-    <TouchableOpacity
+    <Pressable
       disabled={isLoading}
       onPress={handlePress}
       className={`h-12 bg-secondary-100  items-center flex justify-center p-2 rounded-lg  ${btnStyles} ${
@@ -28,7 +28,7 @@ const ClickToActionButton = ({
       <Text className={` text-primary font-psemibold text-lg ${textStyles}`}>
         {label}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

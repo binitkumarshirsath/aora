@@ -1,11 +1,12 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import image from "@/constants/images";
 import CustomInput from "../components/CustomInput";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import ClickToActionButton from "../components/CTAButton";
+import { signInUser } from "@/lib/appwrite";
 
 const SignInScreen = () => {
   const [form, setForm] = useState({
@@ -15,8 +16,19 @@ const SignInScreen = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
-    console.log({ form });
+  const handleSubmit = async () => {
+    try {
+      if (!form.email || !form.password) {
+        throw new Error("Email and password is required.");
+      }
+      await signInUser(form.email, form.password);
+      router.push("/home");
+    } catch (error: any) {
+      console.error(error);
+      Alert.alert("Error: ", error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

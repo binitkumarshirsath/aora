@@ -8,10 +8,14 @@ import { StatusBar } from "expo-status-bar";
 
 const App = () => {
   return (
-    <SafeAreaView className=" bg-primary h-full ">
+    //flex-1 scrollview
+    <SafeAreaView className=" bg-primary flex-1">
       <ScrollView
+        scrollEnabled={true}
         className="w-full px-4"
-        contentContainerStyle={{ height: "100%" }}
+        nestedScrollEnabled={true}
+        //remove if scroll doesnt work
+        // contentContainerStyle={{ height: "100%" }}
         keyboardShouldPersistTaps={"always"}
       >
         <View className="justify-center items-center">
