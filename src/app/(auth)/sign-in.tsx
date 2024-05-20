@@ -4,11 +4,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import image from "@/constants/images";
 import CustomInput from "../components/CustomInput";
-import { Link, router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import ClickToActionButton from "../components/CTAButton";
-import { signInUser } from "@/lib/appwrite";
+import { getCurrentUser, signInUser } from "@/lib/appwrite";
+import { useAuth } from "@/context/AuthContext";
 
 const SignInScreen = () => {
+  const { setUser, setIsLoggedIn, isLoggedIn, isLoading } = useAuth();
+
+  if (!isLoading && isLoggedIn) {
+    return <Redirect href={"/home"} />;
+  }
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -22,6 +29,9 @@ const SignInScreen = () => {
         throw new Error("Email and password is required.");
       }
       await signInUser(form.email, form.password);
+      const user = await getCurrentUser();
+      setUser(user);
+      setIsLoggedIn(true);
       router.push("/home");
     } catch (error: any) {
       console.error(error);

@@ -4,11 +4,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import image from "@/constants/images";
 import CustomInput from "../components/CustomInput";
-import { Link, router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import ClickToActionButton from "../components/CTAButton";
 import { createUser } from "@/lib/appwrite";
+import { useAuth } from "@/context/AuthContext";
 
 const SignUpScreen = () => {
+  const { isLoading, isLoggedIn, setIsLoggedIn, setUser } = useAuth();
+
+  if (!isLoading && isLoggedIn) {
+    return <Redirect href={"/home"} />;
+  }
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -22,7 +28,9 @@ const SignUpScreen = () => {
       if (!form.username || !form.email || !form.password) {
         throw new Error("All fields are required");
       }
-      await createUser(form.username, form.email, form.password);
+      const user = await createUser(form.username, form.email, form.password);
+      setIsLoggedIn(true);
+      setUser(user);
       router.push("/sign-in");
     } catch (e: any) {
       Alert.alert("Error: ", e.message);

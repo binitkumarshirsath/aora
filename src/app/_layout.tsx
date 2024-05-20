@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Slot, SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
+import AuthContextProvider from "@/context/AuthContext";
 
 SplashScreen.preventAutoHideAsync();
 //Makes the native splash screen (configured in app.json) remain visible until hideAsync is called.
@@ -29,16 +30,18 @@ const RootLayout = () => {
     return null;
   }
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" />
-    </Stack>
+    <AuthContextProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" />
+      </Stack>
+    </AuthContextProvider>
   );
 };
 
